@@ -6,7 +6,7 @@ public class Snake {
      * SnakeExpander
      * Dient dazu wenn ein essen gegessen wurde wird der body um jeweils einen Part erweitert
      *
-     * @param
+     * @paramd
      * @return 	noned
      */
     public void SnakeExpander(){

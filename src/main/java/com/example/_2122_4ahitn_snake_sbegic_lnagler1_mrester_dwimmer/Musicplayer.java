@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class Musicplayer {
+
+    public String music_file = "src/main/resources/com/example/_2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer/title-music-party-time.mp3";
+
     private AdvancedPlayer player;
 
     public Musicplayer() {
@@ -46,6 +49,7 @@ public class Musicplayer {
         } catch (Exception ex) {
             error(filename);
         }
+
     }
 
     public void stop() {
@@ -83,6 +87,8 @@ public class Musicplayer {
                 player = null;
             }
         }
+        System.out.println("Music-File has finished!\nRestart Music-File!");
+        startPlaying(music_file);
     }
 
     private void error(String filename) {

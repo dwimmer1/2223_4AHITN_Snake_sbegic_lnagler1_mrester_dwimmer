@@ -18,6 +18,7 @@ public class HelloApplication extends Application {
         stage.setTitle("Snake");
         stage.show();
 
+
     }
 
     static void setRoot(String fxml) throws IOException {

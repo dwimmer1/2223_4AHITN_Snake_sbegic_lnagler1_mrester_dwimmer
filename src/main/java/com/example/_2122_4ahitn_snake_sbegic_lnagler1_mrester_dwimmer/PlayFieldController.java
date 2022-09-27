@@ -12,8 +12,8 @@ public class PlayFieldController {
     VBox vBox = new VBox();
 
     public void initialize(){
-        Playfield playfield = new Playfield();
-        gridPane = playfield.createGridPane(50, 50);
+       Playfield playfield = new Playfield();
+        gridPane = playfield.createGridPane(15, 15);
         System.out.println(gridPane.toString());
         vBox.getChildren().add(gridPane);
         hbox.getChildren().add(vBox);

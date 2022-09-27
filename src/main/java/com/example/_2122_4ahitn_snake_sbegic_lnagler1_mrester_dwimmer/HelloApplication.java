@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -12,9 +13,9 @@ public class HelloApplication extends Application {
     private static Scene scene;
 
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("menue-view"), 640, 650);
+        scene = new Scene(loadFXML("menue-view"), 500, 400);
         stage.setScene(scene);
-        stage.setTitle("Snake");
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
 
 

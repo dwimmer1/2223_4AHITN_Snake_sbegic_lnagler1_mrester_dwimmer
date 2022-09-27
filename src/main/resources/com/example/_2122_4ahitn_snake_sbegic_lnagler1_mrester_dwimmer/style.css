@@ -1,0 +1,7 @@
+#menue{
+    -fx-background-image: url("snake.jfif");
+    -fx-background-position: center center;
+    -fx-border-color:  #158;
+    -fx-border-width: 5;
+
+}

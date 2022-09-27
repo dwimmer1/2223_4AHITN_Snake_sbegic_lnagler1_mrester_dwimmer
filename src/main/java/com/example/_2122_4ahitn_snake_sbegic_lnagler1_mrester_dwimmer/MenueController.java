@@ -8,7 +8,7 @@ public class MenueController {
 
 
     public void switchToPlayfield() throws IOException {
-        HelloApplication.setRoot("playField-view");
-
+        PlayFieldController play = new PlayFieldController();
+        play.loadPlayField();
     }
 }

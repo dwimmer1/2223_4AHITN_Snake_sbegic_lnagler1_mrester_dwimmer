@@ -11,10 +11,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SnakeController extends Application {
 
     Snake snake = new Snake();
     int speedTest = 5;
+    int widht = 20;
+    int height = 20;
+    public static List<Corner> snakeList = new ArrayList<>();
     public Dir direction = Dir.left;
 
             public enum Dir{
@@ -62,34 +68,14 @@ public class SnakeController extends Application {
                 direction = Dir.right;
             }
         });
+        //Starter snake Part
+        snakeList.add(new Corner(widht/2,height/2));
+        snakeList.add(new Corner(widht/2,height/2));
+        snakeList.add(new Corner(widht/2,height/2));
 
 
-        canvas.setOnKeyPressed(e -> {
-
-            /*
-            switch (e.getCode()) {
-                case UP:
-                    snake.setUp();
-                    break;
-                case DOWN:
-                    snake.setDown();
-                    break;
-                case LEFT:
-                    snake.setLeft();
-                    break;
-                case RIGHT:
-                    snake.setRight();
-                    break;
-                case ENTER:
-                    if (loop.isPaused()) {
-                        reset();
-                        (new Thread(loop)).start();
-                    }
-        }
 
 
-             */
-                    });
 
 
 

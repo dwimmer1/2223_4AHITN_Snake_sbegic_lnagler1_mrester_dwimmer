@@ -2,6 +2,9 @@ package com.example._2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer;
 
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Snake {
 
     public static final Color aliveSnakeColor = Color.BLACK;
@@ -10,12 +13,14 @@ public class Snake {
     public int xVelocity;
     public int yVelocity;
 
+
     public void SnakeInit(){
         snakelenght = 1;
         xVelocity = 1;
         yVelocity = 1;
 
     }
+
 
 
     /**

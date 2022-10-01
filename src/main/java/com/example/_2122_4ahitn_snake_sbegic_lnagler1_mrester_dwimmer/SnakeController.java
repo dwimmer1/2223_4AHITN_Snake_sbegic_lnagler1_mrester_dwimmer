@@ -6,6 +6,7 @@ import java.util.Random;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -20,6 +21,7 @@ public class SnakeController extends Application {
     // variable
     static int speed = 5;
     static int foodcolor = 0;
+    public static Image foodImage;
     static int width = 20;
     static int height = 20;
     static int foodX = 0;
@@ -49,6 +51,7 @@ public class SnakeController extends Application {
     public void start(Stage primaryStage) {
         try {
             newFood();
+
 
             VBox root = new VBox();
             Canvas c = new Canvas(width * cornersize, height * cornersize);
@@ -155,7 +158,6 @@ public class SnakeController extends Application {
         }
 
 
-
         // fill
         // background
         gc.setFill(Color.LIGHTGREEN);
@@ -167,6 +169,15 @@ public class SnakeController extends Application {
         gc.setFont(new Font("", 15));
         gc.fillText("Punkte: " + (speed - 60), 10, 30);
         //Speed benutz da die variable immer mitgecountet wird
+
+        // snake
+        for (Corner c : snake) {
+            gc.setFill(Color.LIGHTGREEN);
+            gc.fillRect(c.x * cornersize, c.y * cornersize, cornersize - 1, cornersize - 1);
+            gc.setFill(Color.GREEN);
+            gc.fillRect(c.x * cornersize, c.y * cornersize, cornersize - 2, cornersize - 2);
+
+        }
 
         // random foodcolor
         Color cc = Color.WHITE;
@@ -189,30 +200,26 @@ public class SnakeController extends Application {
                 break;
         }
         gc.setFill(cc);
-        gc.fillOval(foodX * cornersize, foodY * cornersize, cornersize, cornersize);
-
-        // snake
-        for (Corner c : snake) {
-            gc.setFill(Color.LIGHTGREEN);
-            gc.fillRect(c.x * cornersize, c.y * cornersize, cornersize - 1, cornersize - 1);
-            gc.setFill(Color.GREEN);
-            gc.fillRect(c.x * cornersize, c.y * cornersize, cornersize - 2, cornersize - 2);
-
-        }
+        gc.fillOval(foodX * cornersize, foodY * cornersize, cornersize, cornersize); // Füllt mit farbe das food
 
     }
 
     // food
     public static void newFood() {
-        start: while (true) {
+        //   foodImage = new Image("C:\\Users\\danie\\IdeaProjects\\Java\\Snake\\assets\\icon\\MciResize.png", 50, 50, false, false);
+        start:
+        while (true) {
             foodX = rand.nextInt(width);
             foodY = rand.nextInt(height);
 
+            /* TEST
             for (Corner c : snake) {
                 if (c.x == foodX && c.y == foodY) {
                     continue start;
                 }
             }
+            */
+
             foodcolor = rand.nextInt(5);
             speed++; // pro gegessenes essen wird speed erhöt um 1
             break;

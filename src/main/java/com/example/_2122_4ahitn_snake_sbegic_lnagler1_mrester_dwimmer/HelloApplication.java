@@ -19,7 +19,6 @@ public class HelloApplication extends Application {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
 
-
     }
 
     static void setRoot(String fxml) throws IOException {

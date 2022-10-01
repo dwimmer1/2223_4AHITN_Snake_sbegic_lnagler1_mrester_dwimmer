@@ -46,7 +46,8 @@ public class PlayFieldController {
         Playfield playfield = new Playfield();
         playfield.drawBackground(columns, rows, graphicsContext, squareSize);
         playfield.drawFood(graphicsContext, squareSize, food);
-        snake.SnakeInit();
+        SnakeController snake = new SnakeController();
+        snake.start(primaryStage);
     }
 
 }

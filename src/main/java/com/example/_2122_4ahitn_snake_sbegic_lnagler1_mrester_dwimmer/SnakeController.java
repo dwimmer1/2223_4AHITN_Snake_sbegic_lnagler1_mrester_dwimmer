@@ -22,6 +22,9 @@ public class SnakeController extends Application {
     int saveSp = 0;
     static int speed = 5;
     static int count = 0;
+    static Food food = new Food();
+    static Playfield playfield = new Playfield();
+
     static int foodcolor = 0;
     public static Image foodImage;
     static int width = 20;
@@ -60,6 +63,9 @@ public class SnakeController extends Application {
             Canvas c = new Canvas(width * cornersize, height * cornersize);
             GraphicsContext gc = c.getGraphicsContext2D();
             root.getChildren().add(c);
+
+            newFood(gc);
+
 
             new AnimationTimer() {
                 long lastTick = 0;
@@ -163,9 +169,9 @@ public class SnakeController extends Application {
         }
 
         // eat
-        if (foodX == snake.get(0).x && foodY == snake.get(0).y) {
+        if (food.getFoodX() == snake.get(0).x && food.getFoodY() == snake.get(0).y) {
             snake.add(new Corner(-1, -1));
-            newFood();
+            newFood(gc);
         }
 
 
@@ -178,23 +184,19 @@ public class SnakeController extends Application {
 
         // fill
         // background
-        gc.setFill(Color.LIGHTGREEN);
+        gc = playfield.drawBackground(width, height, gc, cornersize);
         // Füllt wieder den hintergrund hinter der Schlange
-        gc.fillRect(0, 0, width * cornersize, height * cornersize);
 
         // score
         gc.setFill(Color.BLACK);
         gc.setFont(new Font("", 15));
-        gc.fillText("Punkte: " + (speed - 60), 10, 30);
+        gc.fillText("Punkte: " + (speed - 6), 10, 30);
         //Speed benutz da die variable immer mitgecountet wird
 
         // snake
         for (Corner c : snake) {
-            gc.setFill(Color.LIGHTGREEN);
-            gc.fillRect(c.x * cornersize, c.y * cornersize, cornersize - 1, cornersize - 1);
             gc.setFill(Color.GREEN);
             gc.fillRect(c.x * cornersize, c.y * cornersize, cornersize - 2, cornersize - 2);
-
         }
 
         // random foodcolor
@@ -217,37 +219,15 @@ public class SnakeController extends Application {
                 cc = Color.ORANGE;
                 break;
         }
-        gc.setFill(cc);
-        gc.fillOval(foodX * cornersize, foodY * cornersize, cornersize, cornersize); // Füllt mit farbe das food
 
     }
 
     // food
-    public static void newFood() {
-        //   foodImage = new Image("C:\\Users\\danie\\IdeaProjects\\Java\\Snake\\assets\\icon\\MciResize.png", 50, 50, false, false);
-        start:
-        while (true) {
-            foodX = rand.nextInt(width);
-            foodY = rand.nextInt(height);
+    public static void newFood(GraphicsContext gc) {
+        food.randomFood(width, height);
+        playfield.drawFood(gc, cornersize, food);
 
-            /* TEST
-            for (Corner c : snake) {
-                if (c.x == foodX && c.y == foodY) {
-                    continue start;
-                }
-            }
-            */
 
-            foodcolor = rand.nextInt(5);
-
-            count++;
-            if (count % 4 ==0){
-                speed++; // pro 4 gegessenes essen wird speed erhöt um 1
-            }
-
-            break;
-
-        }
     }
 
     public static void main(String[] args) {

@@ -7,23 +7,26 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 public class Playfield {
-    GridPane gridPane = new GridPane();
 
-    public void drawBackground(int cols, int rows, GraphicsContext graphicsContext, int squareSize) {
+    public GraphicsContext drawBackground(int cols, int rows, GraphicsContext gc, int squareSize) {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 if ((i + j) % 2 == 0) {
-                    graphicsContext.setFill(Color.GREEN);
+                    Color c = Color.web("#a2d049");
+                    gc.setFill(c);
                 } else {
-                    graphicsContext.setFill(Color.LIGHTGREEN);
+                    Color c = Color.web("#a9d751");
+                    gc.setFill(c);
                 }
-                graphicsContext.fillRect(i * squareSize, j * squareSize, squareSize, squareSize);
+                gc.fillRect(i * squareSize, j * squareSize, squareSize, squareSize);
             }
         }
+        return gc;
     }
 
-    public void drawFood(GraphicsContext graphicsContext, int squareSize, Food food) {
+    public GraphicsContext drawFood(GraphicsContext graphicsContext, int squareSize, Food food) {
         graphicsContext.drawImage(food.getFoodImage(), food.getFoodX() * squareSize, food.getFoodY() * squareSize, squareSize, squareSize);
         System.out.println(food.getFoodImage().getUrl());
+        return graphicsContext;
     }
 }

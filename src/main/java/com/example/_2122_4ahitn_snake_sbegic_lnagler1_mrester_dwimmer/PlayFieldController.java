@@ -1,5 +1,6 @@
 package com.example._2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer;
 
+import javafx.application.Preloader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -22,7 +23,7 @@ public class PlayFieldController {
     public VBox VBoxPlay;
     Stage primaryStage = new Stage();
     Food food = new Food();
-    Snake snake = new Snake();
+    private static Scene scene;
 
 
     public void loadPlayField() throws IOException {
@@ -31,7 +32,7 @@ public class PlayFieldController {
         Group root = new Group();
         Canvas canvas = new Canvas(width, heigth);
         root.getChildren().add(canvas);
-        Scene scene = new Scene(root);
+        scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
         graphicsContext = canvas.getGraphicsContext2D();
@@ -48,6 +49,10 @@ public class PlayFieldController {
         playfield.drawFood(graphicsContext, squareSize, food);
         SnakeController snake = new SnakeController();
         snake.start(primaryStage);
+    }
+
+    public Scene getScene(){
+        return scene;
     }
 
 }

@@ -19,7 +19,9 @@ import javafx.scene.text.Font;
 
 public class SnakeController extends Application {
     // variable
+    int saveSp = 0;
     static int speed = 5;
+    static int count = 0;
     static int foodcolor = 0;
     public static Image foodImage;
     static int width = 20;
@@ -27,6 +29,7 @@ public class SnakeController extends Application {
     static int foodX = 0;
     static int foodY = 0;
     static int cornersize = 25;
+    static int startSize = 3;
     static List<Corner> snake = new ArrayList<>();
     static Dir direction = Dir.left;
     static boolean gameOver = false;
@@ -67,11 +70,13 @@ public class SnakeController extends Application {
                         tick(gc);
                         return;
                     }
-
-                    if (now - lastTick > 1000000000 / speed) {
-                        lastTick = now;
-                        tick(gc);
+                    if (speed !=0){
+                        if (now - lastTick > 1000000000 / speed) {
+                            lastTick = now;
+                            tick(gc);
+                        }
                     }
+
                 }
 
             }.start();
@@ -92,13 +97,26 @@ public class SnakeController extends Application {
                 if (key.getCode() == KeyCode.RIGHT) {
                     direction = Dir.right;
                 }
+                if (key.getCode() == KeyCode.SPACE) {
+
+                    if(speed >0){
+                        saveSp = speed;
+                        speed = 0;
+                    }else if (speed ==0){
+                        speed = saveSp;
+                    }
+                }
+                if (key.getCode() == KeyCode.ESCAPE){
+                    primaryStage.close();
+                }
 
             });
 
             // add start snake parts
-            snake.add(new Corner(width / 2, height / 2));
-            snake.add(new Corner(width / 2, height / 2));
-            snake.add(new Corner(width / 2, height / 2));
+            for(int i = 0; i < startSize; i++){
+                snake.add(new Corner(width / 2, height / 2));
+            }
+
 
             primaryStage.setScene(scene);
             primaryStage.setTitle("SNAKE");
@@ -221,7 +239,12 @@ public class SnakeController extends Application {
             */
 
             foodcolor = rand.nextInt(5);
-            speed++; // pro gegessenes essen wird speed erhöt um 1
+
+            count++;
+            if (count % 4 ==0){
+                speed++; // pro 4 gegessenes essen wird speed erhöt um 1
+            }
+
             break;
 
         }

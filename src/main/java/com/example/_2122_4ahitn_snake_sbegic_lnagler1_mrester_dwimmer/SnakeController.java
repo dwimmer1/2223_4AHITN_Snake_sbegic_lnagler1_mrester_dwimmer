@@ -53,6 +53,7 @@ public class SnakeController extends Application {
 
     public void start(Stage primaryStage) {
         try {
+            newFood();
 
 
             VBox root = new VBox();
@@ -60,7 +61,6 @@ public class SnakeController extends Application {
             GraphicsContext gc = c.getGraphicsContext2D();
             root.getChildren().add(c);
 
-            newFood(gc);
 
 
             new AnimationTimer() {
@@ -152,7 +152,7 @@ public class SnakeController extends Application {
         // eat
         if (food.getFoodX() == snake.get(0).x && food.getFoodY() == snake.get(0).y) {
             snake.add(new Corner(-1, -1));
-            newFood(gc);
+            newFood();
         }
 
 
@@ -165,7 +165,7 @@ public class SnakeController extends Application {
 
         // fill
         // background
-        gc = playfield.drawBackground(width, height, gc, cornersize);
+        playfield.drawBackground(width, height, gc, cornersize);
         // Füllt wieder den hintergrund hinter der Schlange
 
         // score
@@ -200,13 +200,12 @@ public class SnakeController extends Application {
                 cc = Color.ORANGE;
                 break;
         }
-
+        playfield.drawFood(gc, cornersize, food);
     }
 
     // food
-    public static void newFood(GraphicsContext gc) {
+    public static void newFood() {
         food.randomFood(width, height);
-        playfield.drawFood(gc, cornersize, food);
 
 
     }

@@ -5,12 +5,14 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="menue" prefHeight="400.0" prefWidth="500.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example._2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer.MenueController">
+<AnchorPane id="menue" prefHeight="400.0" prefWidth="500.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example._2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer.MenueController">
+
    <children>
       <VBox prefHeight="400.0" prefWidth="500.0">
          <children>
@@ -92,5 +94,6 @@
             </VBox>
          </children>
       </VBox>
+      <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="303.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

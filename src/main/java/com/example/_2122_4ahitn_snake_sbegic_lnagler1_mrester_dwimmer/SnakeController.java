@@ -56,7 +56,7 @@ public class SnakeController extends Application {
 
     public void start(Stage primaryStage) {
         try {
-            newFood();
+
 
 
             VBox root = new VBox();

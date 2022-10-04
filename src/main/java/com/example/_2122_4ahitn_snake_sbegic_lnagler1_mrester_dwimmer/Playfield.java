@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 
 public class Playfield {
 
-    public GraphicsContext drawBackground(int cols, int rows, GraphicsContext gc, int squareSize) {
+    public void drawBackground(int cols, int rows, GraphicsContext gc, int squareSize) {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 if ((i + j) % 2 == 0) {
@@ -21,12 +21,9 @@ public class Playfield {
                 gc.fillRect(i * squareSize, j * squareSize, squareSize, squareSize);
             }
         }
-        return gc;
     }
 
-    public GraphicsContext drawFood(GraphicsContext graphicsContext, int squareSize, Food food) {
+    public void drawFood(GraphicsContext graphicsContext, int squareSize, Food food) {
         graphicsContext.drawImage(food.getFoodImage(), food.getFoodX() * squareSize, food.getFoodY() * squareSize, squareSize, squareSize);
-        System.out.println(food.getFoodImage().getUrl());
-        return graphicsContext;
     }
 }

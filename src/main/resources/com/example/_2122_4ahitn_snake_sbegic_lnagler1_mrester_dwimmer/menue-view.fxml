@@ -44,7 +44,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <ChoiceBox fx:id="cbChooseSpeed" prefHeight="25.0" prefWidth="150.0" />
+                              <ChoiceBox fx:id="cbChooseSpeed" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: lightgreen;" />
                            </children>
                            <VBox.margin>
                               <Insets left="25.0" />
@@ -63,7 +63,7 @@
                            <children>
                               <VBox>
                                  <children>
-                                    <Button fx:id="btMusicOnOff" mnemonicParsing="false" onAction="#musicOnOff" text="On/Off" />
+                                    <Button fx:id="btMusicOnOff" mnemonicParsing="false" onAction="#musicOnOff" style="-fx-background-color: lightgreen;" text="On/Off" />
                                  </children>
                               </VBox>
                               <VBox>

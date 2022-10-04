@@ -22,6 +22,7 @@ public class PlayFieldController {
     public VBox VBoxPlay;
     Stage primaryStage = new Stage();
     Food food = new Food();
+    Snake snake = new Snake();
 
 
     public void loadPlayField() throws IOException {
@@ -45,6 +46,8 @@ public class PlayFieldController {
         Playfield playfield = new Playfield();
         playfield.drawBackground(columns, rows, graphicsContext, squareSize);
         playfield.drawFood(graphicsContext, squareSize, food);
+        SnakeController snake = new SnakeController();
+        snake.start(primaryStage);
     }
 
 }

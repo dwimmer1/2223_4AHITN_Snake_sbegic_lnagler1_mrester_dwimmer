@@ -21,6 +21,7 @@ public class SnakeController extends Application {
     // variable
     int saveSp = 0;
     static int speed = 5;
+    static int score = 0;
     static int count = 0;
     static Food food = new Food();
     static Playfield playfield = new Playfield();
@@ -57,7 +58,6 @@ public class SnakeController extends Application {
     public void start(Stage primaryStage) {
         try {
             newFood();
-
 
 
             VBox root = new VBox();
@@ -171,6 +171,7 @@ public class SnakeController extends Application {
         // eat
         if (food.getFoodX() == snake.get(0).x && food.getFoodY() == snake.get(0).y) {
             snake.add(new Corner(-1, -1));
+            score++;
             newFood();
         }
 
@@ -190,7 +191,7 @@ public class SnakeController extends Application {
         // score
         gc.setFill(Color.BLACK);
         gc.setFont(new Font("", 15));
-        gc.fillText("Punkte: " + (speed - 6), 10, 30);
+        gc.fillText("Punkte: " + (score), 10, 30);
         //Speed benutz da die variable immer mitgecountet wird
 
         // snake
@@ -225,6 +226,10 @@ public class SnakeController extends Application {
     // food
     public static void newFood() {
         food.randomFood(width, height);
+        count++;
+        if(count % 4 == 0){
+            speed++;
+        }
 
 
     }

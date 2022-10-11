@@ -1,11 +1,14 @@
 package com.example._2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -20,6 +23,7 @@ import javafx.scene.text.Font;
 public class SnakeController extends Application {
     // variable
     int saveSp = 0;
+    static int ghost = 0;
     static int speed = 5;
     static int score = 0;
     static int count = 0;
@@ -29,14 +33,15 @@ public class SnakeController extends Application {
     static int width = 20;
     static int height = 20;
     static int cornersize = 25;
-    static int startSize = 3;
+    static int startSize = 4;
     static List<Corner> snake = new ArrayList<>();
     static Dir direction = Dir.left;
     static boolean gameOver = false;
+    static Image img = (new Image(new File("assets/icon/mario.png").toURI().toString()));
 
     // Enum für gespeicherte mögliche direction
     public enum Dir {
-        left, right, up, down
+        left, right, up, down,
     }
 
     public static class Corner {
@@ -86,16 +91,16 @@ public class SnakeController extends Application {
 
             // control
             scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
-                if (key.getCode() == KeyCode.UP) {
+                if (key.getCode() == KeyCode.UP && direction != Dir.down) {
                     direction = Dir.up;
                 }
-                if (key.getCode() == KeyCode.LEFT) {
+                if (key.getCode() == KeyCode.LEFT && direction != Dir.right) {
                     direction = Dir.left;
                 }
-                if (key.getCode() == KeyCode.DOWN) {
+                if (key.getCode() == KeyCode.DOWN && direction != Dir.up) {
                     direction = Dir.down;
                 }
-                if (key.getCode() == KeyCode.RIGHT) {
+                if (key.getCode() == KeyCode.RIGHT && direction != Dir.left) {
                     direction = Dir.right;
                 }
                 if (key.getCode() == KeyCode.SPACE) {
@@ -130,9 +135,15 @@ public class SnakeController extends Application {
     // tick
     public static void tick(GraphicsContext gc) {
 
+        if (gameOver) {
+            gc.setFill(Color.RED);
+            gc.setFont(new Font("", 50));
+            gc.fillText("GAME OVER", 100, 250);
+            return;
+        }
         for (int i = snake.size() - 1; i >= 1; i--) {
-            snake.get(i).x = snake.get(i - 1).x;
-            snake.get(i).y = snake.get(i - 1).y;
+                snake.get(i).x = snake.get(i - 1).x;
+                snake.get(i).y = snake.get(i - 1).y;
         }
 
         switch (direction) {
@@ -144,7 +155,7 @@ public class SnakeController extends Application {
                 break;
             case down:
                 snake.get(0).y++;
-                if (snake.get(0).y > height) {
+                if (snake.get(0).y > height -1) {
                     gameOver = true;
                 }
                 break;
@@ -164,7 +175,7 @@ public class SnakeController extends Application {
         }
 
         // eat
-        if (food.getFoodX() == snake.get(0).x && food.getFoodY() == snake.get(0).y) {
+        if (food.getFoodX() == snake.get(1).x && food.getFoodY() == snake.get(1).y) {
             snake.add(new Corner(-1, -1));
             score++;
             newFood();
@@ -191,9 +202,20 @@ public class SnakeController extends Application {
 
         // snake
         for (Corner c : snake) {
-            gc.setFill(Color.GREEN);
+            if(ghost == 0){
+                gc.setFill(Color.TRANSPARENT);
+                ghost++;
+            } else if (ghost ==1) {
+                gc.drawImage(img,  c.x * cornersize, c.y * cornersize, cornersize - 2, cornersize - 2);
+                ghost++;
+            } else{
+                gc.setFill(Color.GREEN);
+            }
+            DropShadow dropShadow = new DropShadow();
+          //  gc.setGlobalBlendMode(BlendMode.SRC_ATOP);
             gc.fillRect(c.x * cornersize, c.y * cornersize, cornersize - 2, cornersize - 2);
         }
+        ghost = 0;
 
         playfield.drawFood(gc, cornersize, food);
     }

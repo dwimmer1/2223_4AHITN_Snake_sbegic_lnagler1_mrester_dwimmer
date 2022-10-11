@@ -5,12 +5,21 @@ import javafx.scene.image.Image;
 
 import java.io.File;
 
+/**
+ * @author lnagler1
+ * The Food which the Snake has to eat to get bigger.
+ */
 public class Food {
-    private final String foodString[] = {"assets/icon/MciResize.png", "assets/icon/apple.png"};
+    private final String[] foodString = {"assets/icon/MciResize.png", "assets/icon/apple.png"};
     private static int foodX;
     private static int foodY;
     private Image foodImage;
 
+    /**
+     * Random X and Y coordinates are created to display the Food at.
+     * @param rows The number off rows the PlayField has.
+     * @param cols The number off columns the PlayField has
+     */
     public void randomFood(int rows, int cols){
         foodX = (int) (Math.random() * rows);
         foodY = (int) (Math.random() * cols);
@@ -18,14 +27,26 @@ public class Food {
     }
 
 
+    /**
+     * Getter for the X coordinate of the Food.
+     * @return the X coordinate off the Food.
+     */
     public int getFoodX() {
         return foodX;
     }
 
+    /**
+     * Getter for the Y coordinate of the Food.
+     * @return the Y coordinate off the Food.
+     */
     public int getFoodY() {
         return foodY;
     }
 
+    /**
+     * Getter for the FoodImage
+     * @return the foodImage for the Food.
+     */
     public Image getFoodImage() {
         return foodImage;
     }

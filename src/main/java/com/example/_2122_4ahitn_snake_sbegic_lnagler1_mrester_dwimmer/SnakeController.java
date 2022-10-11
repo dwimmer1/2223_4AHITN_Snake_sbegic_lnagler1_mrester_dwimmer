@@ -25,19 +25,14 @@ public class SnakeController extends Application {
     static int count = 0;
     static Food food = new Food();
     static Playfield playfield = new Playfield();
-
     static int foodcolor = 0;
-    public static Image foodImage;
     static int width = 20;
     static int height = 20;
-    static int foodX = 0;
-    static int foodY = 0;
     static int cornersize = 25;
     static int startSize = 3;
     static List<Corner> snake = new ArrayList<>();
     static Dir direction = Dir.left;
     static boolean gameOver = false;
-    static Random rand = new Random();
 
     // Enum für gespeicherte mögliche direction
     public enum Dir {

@@ -26,7 +26,10 @@ public class PlayFieldController {
     private static Scene scene;
 
 
-    public void loadPlayField() throws IOException {
+    /**
+     * @author lnagler1
+     */
+    public void loadPlayField() {
 
         primaryStage.setTitle("Snake");
         Group root = new Group();
@@ -43,6 +46,9 @@ public class PlayFieldController {
         System.out.println("Bin drin");
     }
 
+    /**
+     * Starts the whole Process of creating the PlayField and starting the snake.
+     */
     private void start(){
         Playfield playfield = new Playfield();
         playfield.drawBackground(columns, rows, graphicsContext, squareSize);

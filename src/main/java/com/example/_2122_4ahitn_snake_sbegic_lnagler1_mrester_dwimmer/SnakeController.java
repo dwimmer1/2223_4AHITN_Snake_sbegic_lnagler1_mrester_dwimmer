@@ -26,18 +26,13 @@ public class SnakeController extends Application {
     static Food food = new Food();
     static Playfield playfield = new Playfield();
 
-    static int foodcolor = 0;
-    public static Image foodImage;
     static int width = 20;
     static int height = 20;
-    static int foodX = 0;
-    static int foodY = 0;
     static int cornersize = 25;
     static int startSize = 3;
     static List<Corner> snake = new ArrayList<>();
     static Dir direction = Dir.left;
     static boolean gameOver = false;
-    static Random rand = new Random();
 
     // Enum für gespeicherte mögliche direction
     public enum Dir {
@@ -200,26 +195,6 @@ public class SnakeController extends Application {
             gc.fillRect(c.x * cornersize, c.y * cornersize, cornersize - 2, cornersize - 2);
         }
 
-        // random foodcolor
-        Color cc = Color.WHITE;
-
-        switch (foodcolor) {
-            case 0:
-                cc = Color.PURPLE;
-                break;
-            case 1:
-                cc = Color.LIGHTBLUE;
-                break;
-            case 2:
-                cc = Color.YELLOW;
-                break;
-            case 3:
-                cc = Color.PINK;
-                break;
-            case 4:
-                cc = Color.ORANGE;
-                break;
-        }
         playfield.drawFood(gc, cornersize, food);
     }
 

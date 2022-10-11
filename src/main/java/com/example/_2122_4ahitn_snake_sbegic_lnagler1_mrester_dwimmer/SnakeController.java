@@ -20,7 +20,9 @@ import javafx.scene.text.Font;
 public class SnakeController extends Application {
     // variable
     int saveSp = 0;
-    static int speed = 5;
+    static int speed = 4;
+    static int maxSpeed;
+    static String difficulty;
     static int score = 0;
     static int count = 0;
     static Food food = new Food();
@@ -48,6 +50,21 @@ public class SnakeController extends Application {
             this.y = y;
         }
 
+    }
+
+    public static void setSpeed(String diff){
+        difficulty = diff;
+
+        if (difficulty.equals("Normal")){
+            speed = 6;
+        }
+        if (difficulty.equals("Schwer")){
+            speed = 8;
+        }
+        if (difficulty.equals("0/10Yasuo")){
+            speed = 10;
+        }
+        maxSpeed = speed + 3;
     }
 
     public void start(Stage primaryStage) {
@@ -86,16 +103,16 @@ public class SnakeController extends Application {
 
             // control
             scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
-                if (key.getCode() == KeyCode.UP) {
+                if (key.getCode() == KeyCode.UP || key.getCode() == KeyCode.W) {
                     direction = Dir.up;
                 }
-                if (key.getCode() == KeyCode.LEFT) {
+                if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A) {
                     direction = Dir.left;
                 }
-                if (key.getCode() == KeyCode.DOWN) {
+                if (key.getCode() == KeyCode.DOWN || key.getCode() == KeyCode.S) {
                     direction = Dir.down;
                 }
-                if (key.getCode() == KeyCode.RIGHT) {
+                if (key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) {
                     direction = Dir.right;
                 }
                 if (key.getCode() == KeyCode.SPACE) {
@@ -202,12 +219,17 @@ public class SnakeController extends Application {
     public static void newFood() {
         food.randomFood(width, height);
         count++;
-        if(count % 4 == 0){
-            speed++;
+        if (speed != maxSpeed){
+            if(count % 4 == 0){
+                speed++;
+            }
+
         }
 
 
     }
+
+
 
     public static void main(String[] args) {
         launch(args);

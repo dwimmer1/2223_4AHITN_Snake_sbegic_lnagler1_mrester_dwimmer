@@ -14,6 +14,9 @@ public class Snake {
     public int yVelocity;
 
 
+
+
+
     public void SnakeInit(){
         snakelenght = 1;
         xVelocity = 1;
@@ -39,6 +42,10 @@ public class Snake {
     private void checkLenght() {
     }
 
+    public void setDifficulty(String difficulty){
+
+    }
+
     public void chooselevel(int level){
         if (level == 0){ // 0 == leicht
             xVelocity = 1;
@@ -53,4 +60,7 @@ public class Snake {
 
 
     }
+
+
 }
+

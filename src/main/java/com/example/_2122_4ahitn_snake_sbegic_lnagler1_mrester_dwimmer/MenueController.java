@@ -112,6 +112,7 @@ public class MenueController {
     public void switchToPlayfield() throws IOException {
         Stage s = (Stage) btExit.getScene().getWindow();
         s.close();
+        SnakeController.setSpeed((String) cbChooseSpeed.getValue());
         PlayFieldController play = new PlayFieldController();
         play.loadPlayField();
     }

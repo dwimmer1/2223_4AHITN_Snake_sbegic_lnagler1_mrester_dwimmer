@@ -1,11 +1,14 @@
 package com.example._2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -20,23 +23,28 @@ import javafx.scene.text.Font;
 public class SnakeController extends Application {
     // variable
     int saveSp = 0;
-    static int speed = 5;
+    static int ghost = 0;
+    static int speed = 4;
+    static int maxSpeed;
+    static String difficulty;
     static int score = 0;
     static int count = 0;
     static Food food = new Food();
     static Playfield playfield = new Playfield();
     static int foodcolor = 0;
+
     static int width = 20;
     static int height = 20;
     static int cornersize = 25;
-    static int startSize = 3;
+    static int startSize = 4;
     static List<Corner> snake = new ArrayList<>();
     static Dir direction = Dir.left;
     static boolean gameOver = false;
+    static Image img = (new Image(new File("assets/icon/mario.png").toURI().toString()));
 
     // Enum für gespeicherte mögliche direction
     public enum Dir {
-        left, right, up, down
+        left, right, up, down,
     }
 
     public static class Corner {
@@ -48,6 +56,21 @@ public class SnakeController extends Application {
             this.y = y;
         }
 
+    }
+
+    public static void setSpeed(String diff) {
+        difficulty = diff;
+
+        if (difficulty.equals("Normal")) {
+            speed = 6;
+        }
+        if (difficulty.equals("Schwer")) {
+            speed = 8;
+        }
+        if (difficulty.equals("0/10Yasuo")) {
+            speed = 10;
+        }
+        maxSpeed = speed + 3;
     }
 
     public void start(Stage primaryStage) {
@@ -71,7 +94,7 @@ public class SnakeController extends Application {
                         tick(gc);
                         return;
                     }
-                    if (speed !=0){
+                    if (speed != 0) {
                         if (now - lastTick > 1000000000 / speed) {
                             lastTick = now;
                             tick(gc);
@@ -86,16 +109,16 @@ public class SnakeController extends Application {
 
             // control
             scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
-                if (key.getCode() == KeyCode.UP) {
+                if ((key.getCode() == KeyCode.UP || key.getCode() == KeyCode.W) && direction != Dir.down) {
                     direction = Dir.up;
                 }
-                if (key.getCode() == KeyCode.LEFT) {
+                if ((key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A) && direction != Dir.right) {
                     direction = Dir.left;
                 }
-                if (key.getCode() == KeyCode.DOWN) {
+                if ((key.getCode() == KeyCode.DOWN || key.getCode() == KeyCode.S) && direction != Dir.up) {
                     direction = Dir.down;
                 }
-                if (key.getCode() == KeyCode.RIGHT) {
+                if ((key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) && direction != Dir.left) {
                     direction = Dir.right;
                 }
                 if (key.getCode() == KeyCode.SPACE) {
@@ -130,6 +153,12 @@ public class SnakeController extends Application {
     // tick
     public static void tick(GraphicsContext gc) {
 
+        if (gameOver) {
+            gc.setFill(Color.RED);
+            gc.setFont(new Font("", 50));
+            gc.fillText("GAME OVER", 100, 250);
+            return;
+        }
         for (int i = snake.size() - 1; i >= 1; i--) {
             snake.get(i).x = snake.get(i - 1).x;
             snake.get(i).y = snake.get(i - 1).y;
@@ -144,7 +173,7 @@ public class SnakeController extends Application {
                 break;
             case down:
                 snake.get(0).y++;
-                if (snake.get(0).y > height) {
+                if (snake.get(0).y > height - 1) {
                     gameOver = true;
                 }
                 break;
@@ -156,7 +185,7 @@ public class SnakeController extends Application {
                 break;
             case right:
                 snake.get(0).x++;
-                if (snake.get(0).x > width) {
+                if (snake.get(0).x > width - 1) {
                     gameOver = true;
                 }
                 break;
@@ -164,7 +193,7 @@ public class SnakeController extends Application {
         }
 
         // eat
-        if (food.getFoodX() == snake.get(0).x && food.getFoodY() == snake.get(0).y) {
+        if (food.getFoodX() == snake.get(1).x && food.getFoodY() == snake.get(1).y) {
             snake.add(new Corner(-1, -1));
             score++;
             newFood();
@@ -191,30 +220,21 @@ public class SnakeController extends Application {
 
         // snake
         for (Corner c : snake) {
-            gc.setFill(Color.GREEN);
+            if (ghost == 0) {
+                gc.setFill(Color.TRANSPARENT);
+                ghost++;
+            } else if (ghost == 1) {
+                gc.drawImage(img, c.x * cornersize, c.y * cornersize, cornersize - 2, cornersize - 2);
+                ghost++;
+            } else {
+                gc.setFill(Color.GREEN);
+            }
+            DropShadow dropShadow = new DropShadow();
+            //  gc.setGlobalBlendMode(BlendMode.SRC_ATOP);
             gc.fillRect(c.x * cornersize, c.y * cornersize, cornersize - 2, cornersize - 2);
         }
+        ghost = 0;
 
-        // random foodcolor
-        Color cc = Color.WHITE;
-
-        switch (foodcolor) {
-            case 0:
-                cc = Color.PURPLE;
-                break;
-            case 1:
-                cc = Color.LIGHTBLUE;
-                break;
-            case 2:
-                cc = Color.YELLOW;
-                break;
-            case 3:
-                cc = Color.PINK;
-                break;
-            case 4:
-                cc = Color.ORANGE;
-                break;
-        }
         playfield.drawFood(gc, cornersize, food);
     }
 
@@ -222,8 +242,12 @@ public class SnakeController extends Application {
     public static void newFood() {
         food.randomFood(width, height);
         count++;
-        if(count % 4 == 0){
-            speed++;
+        if (speed != maxSpeed) {
+            if (count % 4 == 0) {
+                speed++;
+            }
+
+
         }
 
 

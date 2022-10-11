@@ -42,50 +42,64 @@ public class MenueController {
 
     private MediaPlayer mp;
 
+    /**
+     * String-Array for GIF's
+     */
+    public String[] gifs = {
+            "src/main/resources/com/example/_2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer/GIFs/Easy-Mode-GIF.gif",
+            "src/main/resources/com/example/_2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer/GIFs/Normal-Mode-GIF.gif",
+            "src/main/resources/com/example/_2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer/GIFs/Difficult-Mode-GIF.gif",
+            "src/main/resources/com/example/_2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer/GIFs/yasuo_face_the_wind.gif"
+    };
+    /**
+     * String-Array for Songs
+     */
+    public String[] songs = {
+            "src/main/resources/com/example/_2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer/music/Easy-Mode-Music.mp3",
+            "src/main/resources/com/example/_2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer/music/Normal-Mode-Music.mp3",
+            "src/main/resources/com/example/_2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer/music/Difficult-Mode-Music.mp3",
+            "src/main/resources/com/example/_2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer/music/0_10Yasuo-Mode-Music.mp3"
+    };
+
 
     public void initialize() throws IOException {
         cbChooseSpeed.setItems(FXCollections.observableArrayList(
                 "Leicht", "Normal", "Schwer", "0/10Yasuo"));
-
         cbChooseSpeed.setValue("Leicht");
-        String[] gifs = {
-                "src/main/resources/com/example/_2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer/GIFs/Easy-Mode-GIF.gif",
-                "src/main/resources/com/example/_2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer/GIFs/Normal-Mode-GIF.gif",
-                "src/main/resources/com/example/_2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer/GIFs/Difficult-Mode-GIF.gif",
-                "src/main/resources/com/example/_2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer/GIFs/yasuo_face_the_wind.gif"
-        };
-        String[] songs = {
-                "src/main/resources/com/example/_2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer/music/Easy-Mode-Music.mp3",
-                "src/main/resources/com/example/_2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer/music/Normal-Mode-Music.mp3",
-                "src/main/resources/com/example/_2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer/music/Difficult-Mode-Music.mp3",
-                "src/main/resources/com/example/_2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer/music/0_10Yasuo-Mode-Music.mp3"
-        };
 
+        setDefault(songs, gifs);
+        setSongAndGif(gifs, songs);
+    }
+
+    private void setDefault(String[] songs, String[] gifs) {
+        // sets default Music and GIF when running program
         imageView.setImage(new Image(new File(gifs[0]).toURI().toString()));
         media = new Media(new File(songs[0]).toURI().toString());
         createMediaPlayer();
         setVolume4Song();
-
-        cbChooseSpeed.getSelectionModel().selectedIndexProperty().addListener(
-                (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
-                    if (Integer.parseInt(String.valueOf(new_val)) == 0) {
-                        setSongAndGif(gifs, songs, Integer.parseInt(String.valueOf(new_val)));
-                    } else if (Integer.parseInt(String.valueOf(new_val)) == 1) {
-                        setSongAndGif(gifs, songs, Integer.parseInt(String.valueOf(new_val)));
-                    } else if (Integer.parseInt(String.valueOf(new_val)) == 2) {
-                        setSongAndGif(gifs, songs, Integer.parseInt(String.valueOf(new_val)));
-                    } else if (Integer.parseInt(String.valueOf(new_val)) == 3) {
-                        setSongAndGif(gifs, songs, Integer.parseInt(String.valueOf(new_val)));
-                    }
-                });
     }
 
-    private void setSongAndGif(String[] gifs, String[] songs, int new_val) {
+    private void selectFromDifficultyInput(String[] gifs, String[] songs, int new_val) {
         mp.stop();
         imageView.setImage(null);
         imageView.setImage(new Image(new File(gifs[Integer.parseInt(String.valueOf(new_val))]).toURI().toString()));
         media = new Media(new File(songs[Integer.parseInt(String.valueOf(new_val))]).toURI().toString());
         createMediaPlayer();
+    }
+
+    private void setSongAndGif(String[] gifs, String[] songs) {
+        cbChooseSpeed.getSelectionModel().selectedIndexProperty().addListener(
+                (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
+                    if (Integer.parseInt(String.valueOf(new_val)) == 0) {
+                        selectFromDifficultyInput(gifs, songs, Integer.parseInt(String.valueOf(new_val)));
+                    } else if (Integer.parseInt(String.valueOf(new_val)) == 1) {
+                        selectFromDifficultyInput(gifs, songs, Integer.parseInt(String.valueOf(new_val)));
+                    } else if (Integer.parseInt(String.valueOf(new_val)) == 2) {
+                        selectFromDifficultyInput(gifs, songs, Integer.parseInt(String.valueOf(new_val)));
+                    } else if (Integer.parseInt(String.valueOf(new_val)) == 3) {
+                        selectFromDifficultyInput(gifs, songs, Integer.parseInt(String.valueOf(new_val)));
+                    }
+                });
     }
 
     private void setVolume4Song() {
@@ -96,6 +110,8 @@ public class MenueController {
 
 
     public void switchToPlayfield() throws IOException {
+        Stage s = (Stage) btExit.getScene().getWindow();
+        s.close();
         PlayFieldController play = new PlayFieldController();
         play.loadPlayField();
     }

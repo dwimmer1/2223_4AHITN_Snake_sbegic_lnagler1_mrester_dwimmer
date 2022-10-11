@@ -57,16 +57,16 @@ public class SnakeController extends Application {
 
     }
 
-    public static void setSpeed(String diff){
+    public static void setSpeed(String diff) {
         difficulty = diff;
 
-        if (difficulty.equals("Normal")){
+        if (difficulty.equals("Normal")) {
             speed = 6;
         }
-        if (difficulty.equals("Schwer")){
+        if (difficulty.equals("Schwer")) {
             speed = 8;
         }
-        if (difficulty.equals("0/10Yasuo")){
+        if (difficulty.equals("0/10Yasuo")) {
             speed = 10;
         }
         maxSpeed = speed + 3;
@@ -83,7 +83,6 @@ public class SnakeController extends Application {
             root.getChildren().add(c);
 
 
-
             new AnimationTimer() {
                 long lastTick = 0;
 
@@ -93,7 +92,7 @@ public class SnakeController extends Application {
                         tick(gc);
                         return;
                     }
-                    if (speed !=0){
+                    if (speed != 0) {
                         if (now - lastTick > 1000000000 / speed) {
                             lastTick = now;
                             tick(gc);
@@ -108,39 +107,35 @@ public class SnakeController extends Application {
 
             // control
             scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
-                if (key.getCode() == KeyCode.UP || key.getCode() == KeyCode.W) {
-                if (key.getCode() == KeyCode.UP && direction != Dir.down) {
+                if ((key.getCode() == KeyCode.UP || key.getCode() == KeyCode.W) && direction != Dir.down) {
                     direction = Dir.up;
                 }
-                if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A) {
-                if (key.getCode() == KeyCode.LEFT && direction != Dir.right) {
+                if ((key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A) && direction != Dir.right) {
                     direction = Dir.left;
                 }
-                if (key.getCode() == KeyCode.DOWN || key.getCode() == KeyCode.S) {
-                if (key.getCode() == KeyCode.DOWN && direction != Dir.up) {
+                if ((key.getCode() == KeyCode.DOWN || key.getCode() == KeyCode.S) && direction != Dir.up) {
                     direction = Dir.down;
                 }
-                if (key.getCode() == KeyCode.RIGHT && direction != Dir.left) {
-                if (key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) {
+                if ((key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) && direction != Dir.left) {
                     direction = Dir.right;
                 }
                 if (key.getCode() == KeyCode.SPACE) {
 
-                    if(speed >0){
+                    if (speed > 0) {
                         saveSp = speed;
                         speed = 0;
-                    }else if (speed ==0){
+                    } else if (speed == 0) {
                         speed = saveSp;
                     }
                 }
-                if (key.getCode() == KeyCode.ESCAPE){
+                if (key.getCode() == KeyCode.ESCAPE) {
                     primaryStage.close();
                 }
 
             });
 
             // add start snake parts
-            for(int i = 0; i < startSize; i++){
+            for (int i = 0; i < startSize; i++) {
                 snake.add(new Corner(width / 2, height / 2));
             }
 
@@ -176,7 +171,7 @@ public class SnakeController extends Application {
                 break;
             case down:
                 snake.get(0).y++;
-                if (snake.get(0).y > height) {
+                if (snake.get(0).y > height - 1) {
                     gameOver = true;
                 }
                 break;
@@ -188,7 +183,7 @@ public class SnakeController extends Application {
                 break;
             case right:
                 snake.get(0).x++;
-                if (snake.get(0).x > width) {
+                if (snake.get(0).x > width - 1) {
                     gameOver = true;
                 }
                 break;
@@ -196,7 +191,7 @@ public class SnakeController extends Application {
         }
 
         // eat
-        if (food.getFoodX() == snake.get(0).x && food.getFoodY() == snake.get(0).y) {
+        if (food.getFoodX() == snake.get(1).x && food.getFoodY() == snake.get(1).y) {
             snake.add(new Corner(-1, -1));
             score++;
             newFood();
@@ -223,17 +218,17 @@ public class SnakeController extends Application {
 
         // snake
         for (Corner c : snake) {
-            if(ghost == 0){
+            if (ghost == 0) {
                 gc.setFill(Color.TRANSPARENT);
                 ghost++;
-            } else if (ghost ==1) {
-                gc.drawImage(img,  c.x * cornersize, c.y * cornersize, cornersize - 2, cornersize - 2);
+            } else if (ghost == 1) {
+                gc.drawImage(img, c.x * cornersize, c.y * cornersize, cornersize - 2, cornersize - 2);
                 ghost++;
-            } else{
+            } else {
                 gc.setFill(Color.GREEN);
             }
             DropShadow dropShadow = new DropShadow();
-          //  gc.setGlobalBlendMode(BlendMode.SRC_ATOP);
+            //  gc.setGlobalBlendMode(BlendMode.SRC_ATOP);
             gc.fillRect(c.x * cornersize, c.y * cornersize, cornersize - 2, cornersize - 2);
         }
         ghost = 0;
@@ -245,10 +240,13 @@ public class SnakeController extends Application {
     public static void newFood() {
         food.randomFood(width, height);
         count++;
-        if (speed != maxSpeed){
-            if(count % 4 == 0){
+        if (speed != maxSpeed) {
+            if (count % 4 == 0) {
                 speed++;
             }
+
+
+        }
 
 
     }

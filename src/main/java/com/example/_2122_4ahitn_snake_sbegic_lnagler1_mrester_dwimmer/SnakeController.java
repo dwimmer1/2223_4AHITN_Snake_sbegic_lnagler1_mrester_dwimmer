@@ -47,16 +47,7 @@ public class SnakeController extends Application {
         left, right, up, down,
     }
 
-    public static class Corner {
-        int x;
-        int y;
 
-        public Corner(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-    }
 
     public static void setSpeed(String diff) {
         difficulty = diff;
@@ -229,8 +220,8 @@ public class SnakeController extends Application {
             } else {
                 gc.setFill(Color.GREEN);
             }
-            DropShadow dropShadow = new DropShadow();
-            //  gc.setGlobalBlendMode(BlendMode.SRC_ATOP);
+
+
             gc.fillRect(c.x * cornersize, c.y * cornersize, cornersize - 2, cornersize - 2);
         }
         ghost = 0;

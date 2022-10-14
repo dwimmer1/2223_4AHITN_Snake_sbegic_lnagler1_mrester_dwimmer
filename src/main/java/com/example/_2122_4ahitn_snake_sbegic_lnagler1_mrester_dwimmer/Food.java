@@ -28,7 +28,7 @@ public class Food {
         do {
             foodX = (int) (Math.random() * rows);
             foodY = (int) (Math.random() * cols);
-            for (SnakeController.Corner part : SnakeController.snake) {
+            for (Corner part : SnakeController.snake) {
                 tempX = part.x;
                 tempY = part.y;
             }

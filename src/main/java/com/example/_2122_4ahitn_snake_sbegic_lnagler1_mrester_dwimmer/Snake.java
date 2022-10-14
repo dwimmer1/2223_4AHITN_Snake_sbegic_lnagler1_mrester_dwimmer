@@ -27,6 +27,7 @@ public class Snake {
 
 
     /**
+     * @author: dwimmer1
      * SnakeExpander
      * Dient dazu wenn ein essen gegessen wurde wird der body um jeweils einen Part erweitert
      *

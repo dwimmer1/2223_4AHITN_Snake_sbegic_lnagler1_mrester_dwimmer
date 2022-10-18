@@ -58,17 +58,6 @@ public class SnakeController extends Application {
         left, right, up, down,
     }
 
-    public static class Corner {
-        int x;
-        int y;
-
-        public Corner(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-    }
-
     public static void setSpeed(String diff) {
         difficulty = diff;
 

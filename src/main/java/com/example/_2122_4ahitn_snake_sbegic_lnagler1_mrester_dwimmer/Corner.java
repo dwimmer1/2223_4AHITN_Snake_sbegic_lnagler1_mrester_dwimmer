@@ -1,5 +1,12 @@
 package com.example._2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer;
-
+/**
+ * @author: dwimmer1
+ * Corner
+ * Corners der Snake
+ *
+ * @param
+ * @return 	noned
+ */
 public class Corner {
 
 //Sind die kästen der Schlange

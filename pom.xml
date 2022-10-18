@@ -43,6 +43,11 @@
             <artifactId>javafx-media</artifactId>
             <version>17-ea+11</version>
         </dependency>
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty</artifactId>
+            <version>6.1.25</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -2,7 +2,6 @@ package com.example._2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer;
 
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -36,11 +35,13 @@ public class MenueController {
     @FXML
     public ImageView imageView;
 
-    Boolean music_status = true;   //gets Value from Menue-Input (Default Value = true)
+    Boolean music_status = true;
 
-    private Media media;
+    public static Media media;
 
-    private MediaPlayer mp;
+    public static MediaPlayer mp;
+
+    public static Media lastPlayedMedia;
 
     /**
      * String-Array for GIF's
@@ -61,7 +62,13 @@ public class MenueController {
             "src/main/resources/com/example/_2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer/music/0_10Yasuo-Mode-Music.mp3"
     };
 
-
+    /**
+     * initialize
+     * <p>
+     * is executed when starting program
+     *
+     * @throws IOException
+     */
     public void initialize() throws IOException {
         cbChooseSpeed.setItems(FXCollections.observableArrayList(
                 "Leicht", "Normal", "Schwer", "0/10Yasuo"));
@@ -71,23 +78,53 @@ public class MenueController {
         setSongAndGif(gifs, songs);
     }
 
+    /**
+     * setDefault
+     * <p>
+     * sets default Music and
+     * GIF when running program
+     *
+     * @param songs
+     * @param gifs
+     */
     private void setDefault(String[] songs, String[] gifs) {
-        // sets default Music and GIF when running program
         imageView.setImage(new Image(new File(gifs[0]).toURI().toString()));
         media = new Media(new File(songs[0]).toURI().toString());
+        lastPlayedMedia = media;
         createMediaPlayer();
         setVolume4Song();
     }
 
+    /**
+     * selectFromDifficultyInput
+     * <p>
+     * Changes the music and the
+     * GIF which should be playing
+     *
+     * @param gifs
+     * @param songs
+     * @param new_val
+     */
     private void selectFromDifficultyInput(String[] gifs, String[] songs, int new_val) {
         //switches media for the selected difficulty
         mp.stop();
         imageView.setImage(null);
         imageView.setImage(new Image(new File(gifs[Integer.parseInt(String.valueOf(new_val))]).toURI().toString()));
         media = new Media(new File(songs[Integer.parseInt(String.valueOf(new_val))]).toURI().toString());
+        lastPlayedMedia = media;
         createMediaPlayer();
     }
 
+    /**
+     * setSongAndGif
+     * <p>
+     * Proofs which Gif and music
+     * should be playing based on
+     * selected difficulty
+     *
+     * @param gifs
+     * @param songs
+     */
     private void setSongAndGif(String[] gifs, String[] songs) {
         //selection of the music and the gif
         cbChooseSpeed.getSelectionModel().selectedIndexProperty().addListener(
@@ -104,14 +141,25 @@ public class MenueController {
                 });
     }
 
+    /**
+     * setVolume4Song
+     * <p>
+     * sets Volume for the Music
+     */
     private void setVolume4Song() {
-        //setting the volume music
         slVolume.setValue(mp.getVolume() * 100);
         slVolume.valueProperty().addListener(observable -> mp.setVolume(slVolume.getValue() / 100));
         System.out.println(mp.getStatus());
     }
 
-
+    /**
+     * switchToPlayfield
+     * <p>
+     * Switches to Playfield uppan pressing "Play"-Button
+     * Closes Menue before switching to Playfield
+     *
+     * @throws IOException
+     */
     public void switchToPlayfield() throws IOException {
         //switches to the playfield after the inputs have been made
         Stage s = (Stage) btExit.getScene().getWindow();
@@ -121,13 +169,25 @@ public class MenueController {
         play.loadPlayField();
     }
 
-    public void closeMenue(ActionEvent actionEvent) {
+    /**
+     * closeMenuw
+     * <p>
+     * closes the menue
+     * is executed upon pressing Exit-Button (X in right upper Corner)
+     */
+    public void closeMenue() {
         //closing menue
         Stage s = (Stage) btExit.getScene().getWindow();
         s.close();
     }
 
-    public void musicOnOff(ActionEvent actionEvent) {
+    /**
+     * musicOnOff
+     * <p>
+     * Turns the music on or off
+     * Is executed upon pressing On/Off Button
+     */
+    public void musicOnOff() {
         //music on off
         music_status = !music_status;
         if (music_status) {
@@ -137,6 +197,13 @@ public class MenueController {
         }
     }
 
+    /**
+     * createMediaPlayer
+     * <p>
+     * Creates a new Mediaplayer
+     * Sets default value to half of max value
+     * plays the song indefinitely
+     */
     public void createMediaPlayer() {
         //mediaplayer gets created
         mp = new MediaPlayer(media);

@@ -8,6 +8,7 @@ import java.util.Timer;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -16,11 +17,22 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SnakeController extends Application {
     // variable
@@ -28,6 +40,7 @@ public class SnakeController extends Application {
     static Font theFont = Font.font("Times New Roman", FontWeight.BOLD, 15);
     static int ghost = 0;
     static int speed = 4;
+    static int startspeed;
     static int maxSpeed;
     static String difficulty;
     static boolean drawn = false;
@@ -47,6 +60,11 @@ public class SnakeController extends Application {
     static boolean gameOver = false;
     static Image img = (new Image(new File("assets/icon/mario.png").toURI().toString()));
 
+    private static Stage scoreStage = new Stage();
+    private static Scene scorescene;
+
+    private int flag = 0;
+
     // Enum für gespeicherte mögliche direction
 
     /**
@@ -65,12 +83,15 @@ public class SnakeController extends Application {
 
         if (difficulty.equals("Normal")) {
             speed = 6;
+            startspeed = speed;
         }
         if (difficulty.equals("Schwer")) {
             speed = 8;
+            startspeed = speed;
         }
         if (difficulty.equals("0/10Yasuo")) {
             speed = 10;
+            startspeed = speed;
         }
         maxSpeed = speed + 3;
     }
@@ -85,7 +106,6 @@ public class SnakeController extends Application {
             GraphicsContext gc = c.getGraphicsContext2D();
             root.getChildren().add(c);
 
-
             new AnimationTimer() {
                 long lastTick = 0;
 
@@ -98,18 +118,36 @@ public class SnakeController extends Application {
                  * @return noned
                  */
                 public void handle(long now) {
-                    if (lastTick == 0) {
-                        lastTick = now;
-                        tick(gc);
-                        return;
-                    }
-                    if (speed != 0) {
-                        if (now - lastTick > 1000000000 / speed) {
+                    if (!gameOver) {
+                        if (lastTick == 0) {
                             lastTick = now;
                             tick(gc);
+                            return;
                         }
-                    }
+                        if (speed != 0) {
+                            if (now - lastTick > 1000000000 / speed) {
+                                lastTick = now;
+                                tick(gc);
+                            }
+                        }
 
+                    } else if (flag == 0) {
+                        flag = 1;
+                        Stage stage = new Stage();
+                        FXMLLoader fxmlLoader = new FXMLLoader();
+                        URL u = HelloApplication.class.getResource("Scoreboard.fxml");
+                        fxmlLoader.setLocation(u);
+                        Scene scene = null;
+                        try {
+                            scene = new Scene(fxmlLoader.load());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        stage.initStyle(StageStyle.UNDECORATED);
+                        stage.setScene(scene);
+                        stage.show();
+                        return;
+                    }
                 }
 
             }.start();
@@ -140,11 +178,18 @@ public class SnakeController extends Application {
                     }
                 }
                 if (key.getCode() == KeyCode.R) {
+                    MenueController.mp = new MediaPlayer(MenueController.lastPlayedMedia);
+                    MenueController.mp.setAutoPlay(true);
+                    MenueController.mp.setVolume(0.5);
+                    MenueController.mp.setCycleCount(MediaPlayer.INDEFINITE);
+
                     //when the R Key is pressed the game resets. Snake in middle and Points to 0
                     gameOver = false;
                     playfield.drawBackground(width, height, gc, cornersize);
+                    flag = 0;
                     snake.clear();
                     score = 0;
+                    speed = startspeed;
                     for (int i = 0; i < startSize; i++) {
                         snake.add(new Corner(width / 2, height / 2));
                     }
@@ -182,13 +227,13 @@ public class SnakeController extends Application {
      * animation tick timer in ihr wird LooseCondition und directions geprüft
      */
     public static void tick(GraphicsContext gc) {
-
         if (gameOver) {
             gc.setFill(Color.RED);
             gc.setFont(new Font("", 50));
             gc.fillText("GAME OVER", 100, 250);
             return;
         }
+
         for (int i = snake.size() - 1; i >= 1; i--) {
             snake.get(i).x = snake.get(i - 1).x;
             snake.get(i).y = snake.get(i - 1).y;
@@ -242,6 +287,8 @@ public class SnakeController extends Application {
         // fill
         // background
         // Füllt wieder den hintergrund hinter der Schlange
+
+        // score
         gc.setFill(Color.BLACK);
         gc.setFont(theFont);
         gc.fillText("Punkte: " + (score), 10, 30);
@@ -276,6 +323,8 @@ public class SnakeController extends Application {
     }
 
     // food
+
+
     public static void newFood() {
         food.randomFood(width, height);
         count++;
@@ -286,8 +335,6 @@ public class SnakeController extends Application {
 
 
         }
-
-
     }
 
     public static void main(String[] args) {

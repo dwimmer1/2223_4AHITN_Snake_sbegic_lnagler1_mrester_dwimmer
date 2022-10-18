@@ -46,6 +46,14 @@ public class SnakeController extends Application {
     static Image img = (new Image(new File("assets/icon/mario.png").toURI().toString()));
 
     // Enum für gespeicherte mögliche direction
+    /**
+     * @author: dwimmer1
+     * dir
+     * Dient als enum zur zwischenspeicherung der directions
+     *
+     * @param
+     * @return 	noned
+     */
     public enum Dir {
         left, right, up, down,
     }
@@ -90,7 +98,14 @@ public class SnakeController extends Application {
 
             new AnimationTimer() {
                 long lastTick = 0;
-
+                /**
+                 * @author: dwimmer1, lnalger
+                 * handle
+                 * ist grundlegende handle function für die tick function eventfilter für keyinputs
+                 *
+                 * @param now
+                 * @return 	noned
+                 */
                 public void handle(long now) {
                     if (lastTick == 0) {
                         lastTick = now;
@@ -125,7 +140,7 @@ public class SnakeController extends Application {
                     direction = Dir.right;
                 }
                 if (key.getCode() == KeyCode.SPACE) {
-
+                    //when the spacebar is pressed the snake pauses
                     if(speed >0){
                         saveSp = speed;
                         speed = 0;
@@ -134,6 +149,7 @@ public class SnakeController extends Application {
                     }
                 }
                 if (key.getCode() == KeyCode.R) {
+                    //when the R Key is pressed the game resets. Snake in middle and Points to 0
                     gameOver = false;
                     snake.clear();
                     score = 0;
@@ -146,6 +162,7 @@ public class SnakeController extends Application {
                     primaryStage.show();
                 }
                 if (key.getCode() == KeyCode.ESCAPE){
+                    //closes the game
                     primaryStage.close();
                 }
 
@@ -156,7 +173,7 @@ public class SnakeController extends Application {
                 snake.add(new Corner(width / 2, height / 2));
             }
 
-
+            //sets the scene
             primaryStage.setScene(scene);
             primaryStage.setTitle("SNAKE");
             primaryStage.show();
@@ -165,7 +182,14 @@ public class SnakeController extends Application {
         }
     }
 
-    // tick
+    /**
+     * @author: dwimmer1
+     * tick
+     * animation tick timer in ihr wird LooseCondition und directions geprüft
+     *
+     * @param gc
+     * @return 	noned
+     */
     public static void tick(GraphicsContext gc) {
 
         if (gameOver) {

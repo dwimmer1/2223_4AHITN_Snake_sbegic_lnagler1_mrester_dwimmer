@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -27,6 +28,7 @@ public class SnakeController extends Application {
     static int speed = 4;
     static int maxSpeed;
     static String difficulty;
+    static boolean drawn = false;
     static int score = 0;
     static int count = 0;
     static Food food = new Food();
@@ -153,6 +155,7 @@ public class SnakeController extends Application {
     // tick
     public static void tick(GraphicsContext gc) {
 
+
         if (gameOver) {
             gc.setFill(Color.RED);
             gc.setFont(new Font("", 50));
@@ -195,6 +198,8 @@ public class SnakeController extends Application {
         // eat
         if (food.getFoodX() == snake.get(1).x && food.getFoodY() == snake.get(1).y) {
             snake.add(new Corner(-1, -1));
+            Corner c = snake.get(1);
+            playfield.drawGrid(c.x, c.y, gc, cornersize);
             score++;
             newFood();
         }
@@ -207,9 +212,11 @@ public class SnakeController extends Application {
         }
 
 
+
+
         // fill
         // background
-        playfield.drawBackground(width, height, gc, cornersize);
+
         // Füllt wieder den hintergrund hinter der Schlange
 
         // score
@@ -219,20 +226,27 @@ public class SnakeController extends Application {
         //Speed benutz da die variable immer mitgecountet wird
 
         // snake
+
         for (Corner c : snake) {
-            if (ghost == 0) {
-                gc.setFill(Color.TRANSPARENT);
-                ghost++;
-            } else if (ghost == 1) {
-                gc.drawImage(img, c.x * cornersize, c.y * cornersize, cornersize - 2, cornersize - 2);
-                ghost++;
-            } else {
-                gc.setFill(Color.GREEN);
-            }
+            gc.setFill(Color.GREEN);
             DropShadow dropShadow = new DropShadow();
             //  gc.setGlobalBlendMode(BlendMode.SRC_ATOP);
             gc.fillRect(c.x * cornersize, c.y * cornersize, cornersize - 2, cornersize - 2);
         }
+
+        Stopwatch s = new Stopwatch();
+        s.start();
+
+        if (!drawn){
+            playfield.drawBackground(width, height, gc, cornersize);
+            drawn = true;
+        }else {
+            Corner c = snake.get(snake.size() - 1);
+            playfield.drawGrid(c.x, c.y, gc, cornersize);
+        }
+        s.stop();
+        System.out.println("New Square" + s.toString());
+
         ghost = 0;
 
         playfield.drawFood(gc, cornersize, food);

@@ -71,7 +71,7 @@ public class SnakeController extends Application {
      * @param
      * @author: dwimmer1
      * dir
-     * Dient als enum zur zwischenspeicherung der directions
+     * Is used as an enum to presafe the directions
      * @return noned
      */
     public enum Dir {
@@ -100,6 +100,10 @@ public class SnakeController extends Application {
         try {
             newFood();
 
+                DropShadow shadow = new DropShadow();
+
+
+
 
             VBox root = new VBox();
             Canvas c = new Canvas(width * cornersize, height * cornersize);
@@ -112,8 +116,7 @@ public class SnakeController extends Application {
                 /**
                  * @author: dwimmer1, lnalger
                  * handle
-                 * ist grundlegende handle function für die tick function eventfilter für keyinputs
-                 *
+                 * basic handle function for tick function and adds eventfilter for keyinputs
                  * @param now
                  * @return noned
                  */
@@ -220,11 +223,11 @@ public class SnakeController extends Application {
     }
 
     /**
+     * @author: dwimmer1
+     * handle
+     * tick function which manages the gameOVer and loose conditions
      * @param gc
      * @return noned
-     * @author: dwimmer1
-     * tick
-     * animation tick timer in ihr wird LooseCondition und directions geprüft
      */
     public static void tick(GraphicsContext gc) {
         if (gameOver) {

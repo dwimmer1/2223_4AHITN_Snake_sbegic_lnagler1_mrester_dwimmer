@@ -129,7 +129,7 @@ public class SnakeController extends Application {
                     direction = Dir.right;
                 }
                 if (key.getCode() == KeyCode.SPACE) {
-
+                    //when the spacebar is pressed the snake pauses
                     if(speed >0){
                         saveSp = speed;
                         speed = 0;
@@ -138,6 +138,7 @@ public class SnakeController extends Application {
                     }
                 }
                 if (key.getCode() == KeyCode.R) {
+                    //when the R Key is pressed the game resets. Snake in middle and Points to 0
                     gameOver = false;
                     snake.clear();
                     score = 0;
@@ -150,6 +151,7 @@ public class SnakeController extends Application {
                     primaryStage.show();
                 }
                 if (key.getCode() == KeyCode.ESCAPE){
+                    //closes the game
                     primaryStage.close();
                 }
 
@@ -160,7 +162,7 @@ public class SnakeController extends Application {
                 snake.add(new Corner(width / 2, height / 2));
             }
 
-
+            //sets the scene
             primaryStage.setScene(scene);
             primaryStage.setTitle("SNAKE");
             primaryStage.show();

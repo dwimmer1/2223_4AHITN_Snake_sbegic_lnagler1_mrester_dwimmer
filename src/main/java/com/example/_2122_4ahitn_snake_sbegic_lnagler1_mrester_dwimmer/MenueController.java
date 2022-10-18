@@ -80,6 +80,7 @@ public class MenueController {
     }
 
     private void selectFromDifficultyInput(String[] gifs, String[] songs, int new_val) {
+        //switches media for the selected difficulty
         mp.stop();
         imageView.setImage(null);
         imageView.setImage(new Image(new File(gifs[Integer.parseInt(String.valueOf(new_val))]).toURI().toString()));
@@ -88,6 +89,7 @@ public class MenueController {
     }
 
     private void setSongAndGif(String[] gifs, String[] songs) {
+        //selection of the music and the gif
         cbChooseSpeed.getSelectionModel().selectedIndexProperty().addListener(
                 (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
                     if (Integer.parseInt(String.valueOf(new_val)) == 0) {
@@ -103,6 +105,7 @@ public class MenueController {
     }
 
     private void setVolume4Song() {
+        //setting the volume music
         slVolume.setValue(mp.getVolume() * 100);
         slVolume.valueProperty().addListener(observable -> mp.setVolume(slVolume.getValue() / 100));
         System.out.println(mp.getStatus());
@@ -110,6 +113,7 @@ public class MenueController {
 
 
     public void switchToPlayfield() throws IOException {
+        //switches to the playfield after the inputs have been made
         Stage s = (Stage) btExit.getScene().getWindow();
         s.close();
         SnakeController.setSpeed((String) cbChooseSpeed.getValue());
@@ -118,11 +122,13 @@ public class MenueController {
     }
 
     public void closeMenue(ActionEvent actionEvent) {
+        //closing menue
         Stage s = (Stage) btExit.getScene().getWindow();
         s.close();
     }
 
     public void musicOnOff(ActionEvent actionEvent) {
+        //music on off
         music_status = !music_status;
         if (music_status) {
             createMediaPlayer();
@@ -132,6 +138,7 @@ public class MenueController {
     }
 
     public void createMediaPlayer() {
+        //mediaplayer gets created
         mp = new MediaPlayer(media);
         mp.setAutoPlay(music_status);
         mp.setVolume(0.5);

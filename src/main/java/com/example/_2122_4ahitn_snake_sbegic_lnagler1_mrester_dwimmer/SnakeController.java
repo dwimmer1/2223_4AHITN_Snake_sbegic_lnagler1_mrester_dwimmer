@@ -44,6 +44,14 @@ public class SnakeController extends Application {
     static Image img = (new Image(new File("assets/icon/mario.png").toURI().toString()));
 
     // Enum für gespeicherte mögliche direction
+    /**
+     * @author: dwimmer1
+     * dir
+     * Dient als enum zur zwischenspeicherung der directions
+     *
+     * @param
+     * @return 	noned
+     */
     public enum Dir {
         left, right, up, down,
     }
@@ -79,7 +87,14 @@ public class SnakeController extends Application {
 
             new AnimationTimer() {
                 long lastTick = 0;
-
+                /**
+                 * @author: dwimmer1, lnalger
+                 * handle
+                 * ist grundlegende handle function für die tick function eventfilter für keyinputs
+                 *
+                 * @param now
+                 * @return 	noned
+                 */
                 public void handle(long now) {
                     if (lastTick == 0) {
                         lastTick = now;
@@ -154,7 +169,14 @@ public class SnakeController extends Application {
         }
     }
 
-    // tick
+    /**
+     * @author: dwimmer1
+     * tick
+     * animation tick timer in ihr wird LooseCondition und directions geprüft
+     *
+     * @param gc
+     * @return 	noned
+     */
     public static void tick(GraphicsContext gc) {
 
         if (gameOver) {

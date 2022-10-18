@@ -33,6 +33,7 @@ public class SnakeController extends Application {
     static int count = 0;
     static Food food = new Food();
     static Playfield playfield = new Playfield();
+    static PlayFieldController playFieldController = new PlayFieldController();
     static int foodcolor = 0;
 
     static int width = 20;
@@ -132,6 +133,18 @@ public class SnakeController extends Application {
                         speed = saveSp;
                     }
                 }
+                if (key.getCode() == KeyCode.R) {
+                    gameOver = false;
+                    snake.clear();
+                    score = 0;
+                    for(int i = 0; i < startSize; i++){
+                        snake.add(new Corner(width / 2, height / 2));
+                    }
+                    primaryStage.close();
+                    primaryStage.setScene(scene);
+                    primaryStage.setTitle("SNAKE");
+                    primaryStage.show();
+                }
                 if (key.getCode() == KeyCode.ESCAPE){
                     primaryStage.close();
                 }
@@ -154,7 +167,6 @@ public class SnakeController extends Application {
 
     // tick
     public static void tick(GraphicsContext gc) {
-
 
         if (gameOver) {
             gc.setFill(Color.RED);
@@ -212,11 +224,8 @@ public class SnakeController extends Application {
         }
 
 
-
-
         // fill
         // background
-
         // Füllt wieder den hintergrund hinter der Schlange
 
         // score
@@ -226,7 +235,6 @@ public class SnakeController extends Application {
         //Speed benutz da die variable immer mitgecountet wird
 
         // snake
-
         for (Corner c : snake) {
             gc.setFill(Color.GREEN);
             DropShadow dropShadow = new DropShadow();

@@ -31,6 +31,7 @@ public class SnakeController extends Application {
     static int count = 0;
     static Food food = new Food();
     static Playfield playfield = new Playfield();
+    static PlayFieldController playFieldController = new PlayFieldController();
     static int foodcolor = 0;
 
     static int width = 20;
@@ -129,6 +130,18 @@ public class SnakeController extends Application {
                     }else if (speed ==0){
                         speed = saveSp;
                     }
+                }
+                if (key.getCode() == KeyCode.R) {
+                    gameOver = false;
+                    snake.clear();
+                    score = 0;
+                    for(int i = 0; i < startSize; i++){
+                        snake.add(new Corner(width / 2, height / 2));
+                    }
+                    primaryStage.close();
+                    primaryStage.setScene(scene);
+                    primaryStage.setTitle("SNAKE");
+                    primaryStage.show();
                 }
                 if (key.getCode() == KeyCode.ESCAPE){
                     primaryStage.close();

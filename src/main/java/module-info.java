@@ -4,6 +4,7 @@ module com.example._2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer {
     requires javafx.fxml;
     requires javafx.graphics;
     requires java.sql;
+    requires javafx.media;
 
 
     opens com.example._2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer to javafx.fxml;

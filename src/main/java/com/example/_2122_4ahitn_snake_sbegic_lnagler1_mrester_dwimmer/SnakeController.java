@@ -11,6 +11,7 @@ import javafx.application.Application;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -24,6 +25,7 @@ import javafx.scene.text.Font;
 public class SnakeController extends Application {
     // variable
     int saveSp = 0;
+    static Font theFont = Font.font("Times New Roman", FontWeight.BOLD, 15);
     static int ghost = 0;
     static int speed = 4;
     static int maxSpeed;
@@ -46,13 +48,13 @@ public class SnakeController extends Application {
     static Image img = (new Image(new File("assets/icon/mario.png").toURI().toString()));
 
     // Enum für gespeicherte mögliche direction
+
     /**
+     * @param
      * @author: dwimmer1
      * dir
      * Dient als enum zur zwischenspeicherung der directions
-     *
-     * @param
-     * @return 	noned
+     * @return noned
      */
     public enum Dir {
         left, right, up, down,
@@ -84,16 +86,16 @@ public class SnakeController extends Application {
             root.getChildren().add(c);
 
 
-
             new AnimationTimer() {
                 long lastTick = 0;
+
                 /**
                  * @author: dwimmer1, lnalger
                  * handle
                  * ist grundlegende handle function für die tick function eventfilter für keyinputs
                  *
                  * @param now
-                 * @return 	noned
+                 * @return noned
                  */
                 public void handle(long now) {
                     if (lastTick == 0) {
@@ -130,19 +132,20 @@ public class SnakeController extends Application {
                 }
                 if (key.getCode() == KeyCode.SPACE) {
                     //when the spacebar is pressed the snake pauses
-                    if(speed >0){
+                    if (speed > 0) {
                         saveSp = speed;
                         speed = 0;
-                    }else if (speed ==0){
+                    } else if (speed == 0) {
                         speed = saveSp;
                     }
                 }
                 if (key.getCode() == KeyCode.R) {
                     //when the R Key is pressed the game resets. Snake in middle and Points to 0
                     gameOver = false;
+                    playfield.drawBackground(width, height, gc, cornersize);
                     snake.clear();
                     score = 0;
-                    for(int i = 0; i < startSize; i++){
+                    for (int i = 0; i < startSize; i++) {
                         snake.add(new Corner(width / 2, height / 2));
                     }
                     primaryStage.close();
@@ -150,7 +153,7 @@ public class SnakeController extends Application {
                     primaryStage.setTitle("SNAKE");
                     primaryStage.show();
                 }
-                if (key.getCode() == KeyCode.ESCAPE){
+                if (key.getCode() == KeyCode.ESCAPE) {
                     //closes the game
                     primaryStage.close();
                 }
@@ -158,7 +161,7 @@ public class SnakeController extends Application {
             });
 
             // add start snake parts
-            for(int i = 0; i < startSize; i++){
+            for (int i = 0; i < startSize; i++) {
                 snake.add(new Corner(width / 2, height / 2));
             }
 
@@ -172,12 +175,11 @@ public class SnakeController extends Application {
     }
 
     /**
+     * @param gc
+     * @return noned
      * @author: dwimmer1
      * tick
      * animation tick timer in ihr wird LooseCondition und directions geprüft
-     *
-     * @param gc
-     * @return 	noned
      */
     public static void tick(GraphicsContext gc) {
 
@@ -221,10 +223,10 @@ public class SnakeController extends Application {
         }
 
         // eat
-        if (food.getFoodX() == snake.get(1).x && food.getFoodY() == snake.get(1).y) {
+        if (food.getFoodX() == snake.get(0).x && food.getFoodY() == snake.get(0).y) {
             snake.add(new Corner(-1, -1));
-            Corner c = snake.get(1);
-            playfield.drawGrid(c.x, c.y, gc, cornersize);
+            Corner c = snake.get(0);
+            playfield.drawBackground(width, height, gc, cornersize);
             score++;
             newFood();
         }
@@ -240,11 +242,11 @@ public class SnakeController extends Application {
         // fill
         // background
         // Füllt wieder den hintergrund hinter der Schlange
-
-        // score
         gc.setFill(Color.BLACK);
-        gc.setFont(new Font("", 15));
+        gc.setFont(theFont);
         gc.fillText("Punkte: " + (score), 10, 30);
+        // score
+
         //Speed benutz da die variable immer mitgecountet wird
 
         // snake
@@ -258,10 +260,10 @@ public class SnakeController extends Application {
         Stopwatch s = new Stopwatch();
         s.start();
 
-        if (!drawn){
+        if (!drawn) {
             playfield.drawBackground(width, height, gc, cornersize);
             drawn = true;
-        }else {
+        } else {
             Corner c = snake.get(snake.size() - 1);
             playfield.drawGrid(c.x, c.y, gc, cornersize);
         }

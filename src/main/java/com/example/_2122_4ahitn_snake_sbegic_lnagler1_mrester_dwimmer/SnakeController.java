@@ -44,7 +44,7 @@ public class SnakeController extends Application {
     static int maxSpeed;
     static String difficulty;
     static boolean drawn = false;
-    static int score = 0;
+    public static int score = 0;
     static int count = 0;
     static Food food = new Food();
     static Playfield playfield = new Playfield();
@@ -135,6 +135,10 @@ public class SnakeController extends Application {
                         }
 
                     } else if (flag == 0) {
+                        gc.setFill(Color.RED);
+                        gc.setFont(new Font("", 50));
+                        gc.fillText("\"R\" = restart" +
+                                "\n\"Esc\" = exit", 100, 250);
                         flag = 1;
                         Stage stage = new Stage();
                         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -228,6 +232,9 @@ public class SnakeController extends Application {
      * tick function which manages the gameOVer and loose conditions
      * @param gc
      * @return noned
+     * @author: dwimmer1
+     * tick
+     * animation tick timer in ihr wird LooseCondition und directions geprüft
      */
     public static void tick(GraphicsContext gc) {
         if (gameOver) {

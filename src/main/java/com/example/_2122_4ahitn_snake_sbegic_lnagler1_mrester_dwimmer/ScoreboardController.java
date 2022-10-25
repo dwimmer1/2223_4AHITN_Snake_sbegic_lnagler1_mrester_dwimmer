@@ -26,6 +26,14 @@ public class ScoreboardController {
 
     MediaPlayer mediaPlayer;
 
+    /**
+     * initialize
+     *
+     * will be executed when scoreboard.fxml is loaded
+     * Creates background
+     * plays "Loose" - Sound
+     * Shows earned points
+     */
     public void initialize() {
         MenueController.mp.stop();
         media = new Media(new File("src/main/resources/com/example/_2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer/music/you-died-hd.mp3").toURI().toString());
@@ -33,7 +41,7 @@ public class ScoreboardController {
         mediaPlayer.setVolume(0.5);
         mediaPlayer.play();
         imageView.setImage(new Image(new File("src/main/resources/com/example/_2122_4ahitn_snake_sbegic_lnagler1_mrester_dwimmer/GIFs/You Died.gif").toURI().toString()));
-        label.setText("Score: " + " " + " Points");
+        label.setText("Score: " + SnakeController.score + " Points");
     }
 
     public void closeScoreboard(){

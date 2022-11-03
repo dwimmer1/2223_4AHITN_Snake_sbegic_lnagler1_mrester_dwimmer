@@ -5,8 +5,8 @@ Das ist die GitHub Page von Snake
 
 # Hier kommen sie zu den einzelnen Seiten
 
-[AboutUS](aboutUS.md)
+[AboutSUS](aboutSUS.md)
 
-[Aboutus2](aboutUs.md)
+[Aboutus2](aboutUS.md)
 
 [SpielErklärung](explanation.md)

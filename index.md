@@ -10,3 +10,5 @@ Das ist die GitHub Page von Snake
 [Aboutus2](aboutUS.md)
 
 [SpielErklärung](explanation.md)
+
+[Bilder](GamePreview.md)

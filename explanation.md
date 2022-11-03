@@ -5,4 +5,4 @@ Our game has four difficulties, each with a different theme music, GIF and start
 
 [Main Menue](index.md)
 
-[About Us](aboutUS.md)
+[About Us](aboutSUS.md)

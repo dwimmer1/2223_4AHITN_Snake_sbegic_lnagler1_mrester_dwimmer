@@ -1,0 +1,1 @@
+Dies ist die Github Page vom Snake Team.

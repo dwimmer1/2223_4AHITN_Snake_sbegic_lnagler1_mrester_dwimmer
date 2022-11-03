@@ -44,7 +44,7 @@ public class SnakeController extends Application {
     static int maxSpeed;
     static String difficulty;
     static boolean drawn = false;
-    public static int score = 0;
+    static int score = 0;
     static int count = 0;
     static Food food = new Food();
     static Playfield playfield = new Playfield();
@@ -71,7 +71,7 @@ public class SnakeController extends Application {
      * @param
      * @author: dwimmer1
      * dir
-     * Is used as an enum to presafe the directions
+     * Dient als enum zur zwischenspeicherung der directions
      * @return noned
      */
     public enum Dir {
@@ -100,10 +100,6 @@ public class SnakeController extends Application {
         try {
             newFood();
 
-                DropShadow shadow = new DropShadow();
-
-
-
 
             VBox root = new VBox();
             Canvas c = new Canvas(width * cornersize, height * cornersize);
@@ -116,7 +112,8 @@ public class SnakeController extends Application {
                 /**
                  * @author: dwimmer1, lnalger
                  * handle
-                 * basic handle function for tick function and adds eventfilter for keyinputs
+                 * ist grundlegende handle function für die tick function eventfilter für keyinputs
+                 *
                  * @param now
                  * @return noned
                  */
@@ -135,10 +132,6 @@ public class SnakeController extends Application {
                         }
 
                     } else if (flag == 0) {
-                        gc.setFill(Color.RED);
-                        gc.setFont(new Font("", 50));
-                        gc.fillText("\"R\" = restart" +
-                                "\n\"Esc\" = exit", 100, 250);
                         flag = 1;
                         Stage stage = new Stage();
                         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -227,9 +220,6 @@ public class SnakeController extends Application {
     }
 
     /**
-     * @author: dwimmer1
-     * handle
-     * tick function which manages the gameOVer and loose conditions
      * @param gc
      * @return noned
      * @author: dwimmer1

@@ -20,5 +20,5 @@ Das ist die GitHub Page von Snake
 
 # Games
 {% for element in site.data.games %}
-- {{element.id}} {{element.game}}
+- {{element.id}}; {{element.game}}
 {% endfor %}

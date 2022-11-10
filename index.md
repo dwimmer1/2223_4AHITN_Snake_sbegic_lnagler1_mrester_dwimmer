@@ -15,4 +15,4 @@ Das ist die GitHub Page von Snake
 
 {% for element in site.data.students %}
 - {{element.firstname}} {{element.lastname}}, {{element.class}}
-- {% endfor %}
+{% endfor %}

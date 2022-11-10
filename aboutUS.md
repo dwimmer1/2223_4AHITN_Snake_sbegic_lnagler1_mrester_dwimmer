@@ -18,3 +18,11 @@ This is the github page of the Snake team.
 
 ![](https://cdn.myanimelist.net/s/common/uploaded_files/1472514013-ddea489c327f20122445ee7ff8183144.jpeg)
 
+[AboutSUS](aboutSUS.md)
+
+[Aboutus2](aboutUS.md)
+
+[SpielErklärung](explanation.md)
+
+[Bilder](GamePreview.md)
+

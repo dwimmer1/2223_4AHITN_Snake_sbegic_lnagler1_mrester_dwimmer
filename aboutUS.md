@@ -19,8 +19,6 @@
 
 [AboutSUS](aboutSUS.md)
 
-[Aboutus2](aboutUS.md)
-
 [SpielErklärung](explanation.md)
 
 [Bilder](GamePreview.md)

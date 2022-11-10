@@ -1,7 +1,3 @@
-# Unser Team
-This is the github page of the Snake team.
-
-
 + Herr Begic (Developer)
 
 <img width="200px" height="300px" src="https://s4.anilist.co/file/anilistcdn/character/large/b30-HwvJtQyu8sBB.jpg">
@@ -12,11 +8,14 @@ This is the github page of the Snake team.
 
 + Herr Wimmer (Developer)
 
-<img width="200px" height="300px" src="https://pngset.com/images/walter-white-picture-walter-white-clothing-coat-jacket-overcoat-transparent-png-1410124.png">
+<img width="200px" height="300px" src="https://image.gala.de/21848176/t/C3/v6/w1440/r0.6667/-/breaking-bad-film.jpg">
 
 + Herr Nagler (Developer)
 
-<img width="200px" height="300px" src="https://w7.pngwing.com/pngs/504/952/png-transparent-programmer-computer-programming-it-furniture-reading-computer.png">
+<img width="200px" height="300px" src="https://cdn.myanimelist.net/s/common/uploaded_files/1472514013-ddea489c327f20122445ee7ff8183144.jpeg">
+
+
+
 
 [AboutSUS](aboutSUS.md)
 
@@ -25,4 +24,3 @@ This is the github page of the Snake team.
 [SpielErklärung](explanation.md)
 
 [Bilder](GamePreview.md)
-

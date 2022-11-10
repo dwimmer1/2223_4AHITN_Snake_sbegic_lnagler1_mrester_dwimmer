@@ -13,12 +13,12 @@ Das ist die GitHub Page von Snake
 
 [Bilder](GamePreview.md)
 
-
+#Students
 {% for element in site.data.students %}
 - {{element.firstname}} {{element.lastname}}, {{element.class}}
 {% endfor %}
 
-
+#Games
 {% for element in site.data.games %}
 - {{element.id}} {{element.game}}
 {% endfor %}

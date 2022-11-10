@@ -18,3 +18,8 @@ my content!
 {% for element in site.data.students %}
 - {{element.firstname}} {{element.lastname}}, {{element.class}}
 {% endfor %}
+
+
+{% for element in site.data.games %}
+- {{element.id}} {{element.game}}
+{% endfor %}

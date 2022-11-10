@@ -4,7 +4,7 @@ This is the github page of the Snake team.
 
 + Herr Begic (Developer)
 
-![](https://s4.anilist.co/file/anilistcdn/character/large/b30-HwvJtQyu8sBB.jpg)
+<img width="200px" height="300px" src="https://s4.anilist.co/file/anilistcdn/character/large/b30-HwvJtQyu8sBB.jpg">
 
 + Herr Rester (Scrum Master)
 

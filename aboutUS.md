@@ -12,7 +12,7 @@ This is the github page of the Snake team.
 
 + Herr Wimmer (Developer)
 
-![](https://image.gala.de/21848176/t/C3/v6/w1440/r0.6667/-/breaking-bad-film.jpg)
+<img width="200px" height="300px" src="https://image.gala.de/21848176/t/C3/v6/w1440/r0.6667/-/breaking-bad-film.jpg">
 
 + Herr Nagler (Developer)
 

@@ -9,5 +9,3 @@ Here you can find some Pictures of the game
 [Main Menue](index.md)
 
 [About Us](aboutUS.md)
-
-[Bilder](GamePreview.md)
